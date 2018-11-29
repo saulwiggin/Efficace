@@ -16,6 +16,8 @@ from flask import Flask, render_template, request
 import json
 import requests
 import time
+import plotly
+import plotly.graph_objs as go
 
 app = Flask(__name__)
 
@@ -37,7 +39,7 @@ def submitted_form():
     site=site,
     comments=comments)
 
-@app.route('/analyse', methods=['POST'])
+@app.route('/analyse')
 def sentiment_analysis():
     url = request.args.get('url')
 
@@ -48,9 +50,15 @@ def sentiment_analysis():
 
     r = requests.post(request_url, post_data)
 
-    // wait seconds befre performing a get request
+    #wait seconds befre performing a get request
     time.sleep(20)
 
-    g = requests.get('https://api.factmata.com/api/v0.1/score/url' + url)
+    get_url = 'https://api.factmata.com/api/v0.1/score/url' + str(url)
+    g = requests.get(get_url)
 
     print g
+
+    # use ploty to make a nice bar chart
+
+    graph_data = [go.Bar(g)]
+    plotly.iplot(graph_data, filename='sentiment-analysis')
