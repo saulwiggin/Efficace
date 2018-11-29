@@ -13,6 +13,9 @@
 # limitations under the License.
 
 from flask import Flask, render_template, request
+import json
+import requests
+import time
 
 app = Flask(__name__)
 
@@ -33,3 +36,21 @@ def submitted_form():
     email=email,
     site=site,
     comments=comments)
+
+@app.route('/analyse', methods=['POST'])
+def sentiment_analysis():
+    url = request.args.get('url')
+
+    request_url = 'http://api.factmata.com/api/v0.1/score/url'
+    data = {}
+    data['url'] = url
+    post_data = json.dumps(data)
+
+    r = requests.post(request_url, post_data)
+
+    // wait seconds befre performing a get request
+    time.sleep(20)
+
+    g = requests.get('https://api.factmata.com/api/v0.1/score/url' + url)
+
+    print g
