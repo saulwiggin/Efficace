@@ -17,7 +17,9 @@ import json
 import requests
 import time
 import plotly
+import plotly.plotly as py
 import plotly.graph_objs as go
+import tweepy
 
 app = Flask(__name__)
 
@@ -41,6 +43,16 @@ def submitted_form():
 
 @app.route('/analyse')
 def sentiment_analysis():
+    #perform twitter scrape of followers
+    auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
+    auth.set_access_token(access_token, access_token_secret)
+
+    api = tweepy.API(auth)
+
+    public_tweets = api.home_timeline()
+    for tweet in public_tweets:
+        print tweet.text
+
     url = request.args.get('url')
 
     request_url = 'http://api.factmata.com/api/v0.1/score/url'
@@ -69,7 +81,7 @@ def sentiment_analysis():
                 0.001000000047497
                 ]
 
-    entries = ['Hate speech','Hyperpartisan','Cickbait','Sexism','Identity Hate','Insult','Threats']
+    entries = ['Hate Speech','Hyperpartisan','Cickbait','Sexism','Identity Hate','Insult','Threats']
 
     graph_data = [go.Bar(entries, demo_data)]
-    plotly.iplot(graph_data, filename='sentiment-analysis')
+    py.iplot(graph_data, filename='sentiment-analysis')
