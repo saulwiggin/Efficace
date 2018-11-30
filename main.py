@@ -21,7 +21,7 @@ import plotly.graph_objs as go
 
 app = Flask(__name__)
 
-@app.route('/form')
+@app.route('/')
 def form():
     return render_template('form.html')
 
@@ -44,9 +44,7 @@ def sentiment_analysis():
     url = request.args.get('url')
 
     request_url = 'http://api.factmata.com/api/v0.1/score/url'
-    data = {}
-    data['url'] = url
-    post_data = json.dumps(data)
+    post_data = json.dumps({'url':url})
 
     r = requests.post(request_url, post_data)
 
@@ -56,9 +54,22 @@ def sentiment_analysis():
     get_url = 'https://api.factmata.com/api/v0.1/score/url' + str(url)
     g = requests.get(get_url)
 
-    print g
+    #return r.text
 
     # use ploty to make a nice bar chart
 
-    graph_data = [go.Bar(g)]
+    demo_data = [
+                0.31600001454353305,
+                0.21600000560283603,
+                0.375999987125396,
+                0.7129999995231621,
+                0.597999989986419,
+                0.008000000379979,
+                0.014000000432133002,
+                0.001000000047497
+                ]
+
+    entries = ['Hate speech','Hyperpartisan','Cickbait','Sexism','Identity Hate','Insult','Threats']
+
+    graph_data = [go.Bar(entries, demo_data)]
     plotly.iplot(graph_data, filename='sentiment-analysis')
