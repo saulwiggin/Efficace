@@ -1,34 +1,39 @@
 <html>
   <head>
-    <title>Submit a form</title>
+
    <link rel="stylesheet" type="text/css" href="/static/style.css">
   </head>
-  <body>
+  <body style='background-color: #3333'>
     <div id="container">
       <div class="pagetitle">
         <h1>Efficace</h1>
       </div>
-      <h4>This application searches Twitter to perform offensive analysis of sentiment. Input Twitter user and this account will be scraped and return analysis of tweets. This can be then used to report the account for the following reasons amongst others:</h4>
+      <h3>A dashboard which analyses a twitter account to find if it is offensive and needs reporting.</h3>
+      <h4> Use cases include: </h4>
       <ul>
         <li> Terrorism </li>
         <li> Online Bullying </li>
-        <li> Pronography </li>
+        <li> Hate Speech </li>
       </ul>
+      <h4> Censoring the most extreme content from the internet and doing a job that large corperations are failing to do </h4>
       <div id="main">
         <div class='row'>
           <div class='col-md-6'>
-            <h2> Input suspect Twitter account:</h2>
+            <h2> Input suspect Twitter account and click to see results!</h2>
+            <form action='/react'>
             <input type='text' placeholder='@username'/>
-            <a class='btn btn-input' href="/react" type='button'>Submit</button>
+            <button class='btn btn-input' onclick='function()' type='submit'>Submit</button>
+          </form>
           </div>
+          <h4> This tool performs sentiment analysis on tweets and returns an option to report the account (this will show actual twitter account and tweets of username entered)</h4>
           <div class='col-md-6'>
             <img height=500 src='/static/images/twitter_profile.png'
           </div>
-
-      </div>
-      <div class='row'>
-        <img src='/static/images/example_tweet.jpg'>
       </div>
     </div>
   </body>
 </html>
+<script>
+function(){
+  location.href='/results'
+}

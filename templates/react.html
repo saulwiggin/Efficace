@@ -6,11 +6,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- styles -->
   </head>
-  <body>
+  <body style='background-color: #3333'>
     <div class="container">
-      <h1>Flask React</h1>
+      <h1>Results</h1>
+      <h5> React will call API and return analysis. Factmata currently produces graph but we could also use other tools to generate a report. </h5>
       <br>
       <div id="content"></div>
+      <img width=500 src='/static/images/analysis.png'/>
+      <h2>Report</h2>
+      <button style="float:left">Report</button>
     </div>
     <!-- scripts -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.1.0/react.min.js"></script>
@@ -19,10 +23,11 @@
     <script type="text/jsx">
 
       /*** @jsx React.DOM */
+      import logo from '/static/images/analysis.png'
 
       var realPython = React.createClass({
         render: function() {
-          return (<h2>Greetings, from Real Python!</h2><img src='/static/images/analysis.png'>);
+          return (<h2>Greetings, from Real Python!</h2><img src={logo}/>);
         }
       });
 
