@@ -25,7 +25,15 @@ app = Flask(__name__)
 
 @app.route('/')
 def form():
-    return render_template('form.html')
+    return render_template('frontend.html')
+
+@app.route('/react')
+def react():
+    return render_template('react.html')
+
+@app.route('/results')
+def results():
+    return render_template('results.html')
 
 @app.route('/submitted', methods=['POST'])
 def submitted_form():
