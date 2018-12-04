@@ -35,6 +35,14 @@ def react():
 def results():
     return render_template('results.html')
 
+@app.route('/search')
+def results():
+    return render_template('search.html')
+
+@app.route('/reveal')
+def results():
+    return render_template('reveal/index.html')
+
 @app.route('/submitted', methods=['POST'])
 def submitted_form():
     name = request.form['name']
